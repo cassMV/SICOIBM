@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model areas {
+  id_area     Int    @id @default(autoincrement())
+  nombre_area String @unique(map: "nombre_area") @db.VarChar(255)
+}
+
+model auditoriabienes {
+  id_auditoria     Int      @id @default(autoincrement())
+  id_bien          Int?
+  fecha_auditoria  DateTime @db.Date
+  id_area_anterior Int?
+  id_area_nueva    Int?
+  comentario       String?  @db.Text
+
+  @@index([id_area_anterior], map: "id_area_anterior")
+  @@index([id_area_nueva], map: "id_area_nueva")
+  @@index([id_bien], map: "id_bien")
+}
+
+model bajasbienes {
+  id_baja               Int      @id @default(autoincrement())
+  id_bien               Int?
+  fecha_baja            DateTime @db.Date
+  motivo_baja           String   @db.Text
+  especificacion_motivo String?  @db.VarChar(255)
+
+  @@index([id_bien], map: "id_bien")
+}
+
+model bienes {
+  id_bien                   Int                  @id @default(autoincrement())
+  numero_consecutivo        Int                  @unique(map: "numero_consecutivo")
+  subcuenta_armonizada      String?              @db.VarChar(100)
+  codigo_partida_especifica String?              @db.VarChar(100)
+  codificacion_gasto        String?              @db.VarChar(100)
+  numero_inventario         String?              @db.VarChar(50)
+  tipo_posesion             bienes_tipo_posesion
+  nombre_bien               String               @db.VarChar(255)
+  estatus_bien              bienes_estatus_bien?
+  id_usuario                Int?
+  fecha_resguardo           DateTime?            @db.Date
+  id_area                   Int?
+  area_responsable          String?              @db.VarChar(255)
+  area_presupuestal         String?              @db.VarChar(255)
+  id_marca                  Int?
+  id_modelo                 Int?
+  serie                     String?              @db.VarChar(100)
+  id_estado                 Int?
+  factura_documento         String?              @db.VarChar(255)
+  fecha_adquisicion         DateTime?            @db.Date
+  costo                     Decimal?             @db.Decimal(10, 2)
+  documento_propiedad       String?              @db.VarChar(255)
+  fecha_documento           DateTime?            @db.Date
+  tipo_alta                 String?              @db.VarChar(100)
+  recurso_origen            String?              @db.VarChar(100)
+  status_legal_documento    String?              @db.VarChar(255)
+  caracteristicas           String?              @db.Text
+  comentario                String?              @db.Text
+  motivo_no_asignado        String?              @db.Text
+
+  @@index([id_area], map: "id_area")
+  @@index([id_estado], map: "id_estado")
+  @@index([id_marca], map: "id_marca")
+  @@index([id_modelo], map: "id_modelo")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model estados {
+  id_estado          Int                        @id @default(autoincrement())
+  descripcion_estado estados_descripcion_estado
+}
+
+model marcas {
+  id_marca     Int    @id @default(autoincrement())
+  nombre_marca String @unique(map: "nombre_marca") @db.VarChar(100)
+}
+
+model modelos {
+  id_modelo     Int    @id @default(autoincrement())
+  nombre_modelo String @unique(map: "nombre_modelo") @db.VarChar(100)
+}
+
+model roles {
+  id_rol      Int     @id @default(autoincrement())
+  nombre_rol  String  @unique(map: "nombre_rol") @db.VarChar(50)
+  descripcion String? @db.VarChar(255)
+}
+
+model usuarios {
+  id_usuario         Int     @id @default(autoincrement())
+  nombre             String  @db.VarChar(100)
+  apellidos          String  @db.VarChar(100)
+  correo_electronico String  @unique(map: "correo_electronico") @db.VarChar(255)
+  password_hash      String  @db.VarChar(255)
+  rfc                String  @unique(map: "rfc") @db.VarChar(13)
+  numero_contacto    String? @db.VarChar(15)
+  id_rol             Int?
+
+  @@index([id_rol], map: "id_rol")
+}
+
+enum estados_descripcion_estado {
+  Bueno
+  Regular
+  Malo
+}
+
+enum bienes_tipo_posesion {
+  Inventariado
+  No_inventariado @map("No inventariado")
+}
+
+enum bienes_estatus_bien {
+  Propuesto_para_baja @map("Propuesto para baja")
+  Posible_reparaci_n  @map("Posible reparación")
+  Por_asignar         @map("Por asignar")
+}
