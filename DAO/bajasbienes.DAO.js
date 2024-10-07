@@ -18,3 +18,47 @@ export const createBajasBienesDAO = async (bajaBien) =>{
         throw error;
     }
 };
+
+export const getBajasBienesDAO = async () => {
+    try {
+        return await prisma.bajasbienes.findMany();
+    } catch (error) {
+        console.error('Error al obtener las bajas de bienes', error);
+        throw error;
+    }
+};
+
+export const getBajaBienDAO = async (id) => {
+    try {
+        return await prisma.bajasbienes.findUnique({
+            where: { id_baja_bien: parseInt(id) }
+        });
+    } catch (error) {
+        console.error('Error al obtener la baja de bien:', error);
+        throw error;
+    }
+};
+
+export const updateBajaBienDAO = async (id, data) => {
+    try {
+        const bajaActualizada = await prisma.bajasbienes.update({
+            where: { id_baja_bien: parseInt(id) },
+            data,
+        });
+        return bajaActualizada;
+    } catch (error) {
+        console.error('Error al actualizar la baja de bien:', error);
+        throw error;
+    }
+};
+
+export const deleteBajaBienDAO = async (id) => {
+    try {
+        return await prisma.bajasbienes.delete({
+            where: { id_baja_bien: parseInt(id) },
+        });
+    } catch (error) {
+        console.error('Error al eliminar la baja de bien:', error);
+        throw error;
+    }
+};
