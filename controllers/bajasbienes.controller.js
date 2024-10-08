@@ -39,6 +39,16 @@ bajaBienController.getBajaBien = async (req, res) => {
     }
 };
 
+bajaBienController.deleteBaja = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const bajaEliminada = await bajaBienDAO.deleteBajaBienDAO(id);
+        return res.status(200).json(bajaEliminada);
+    } catch (error) {
+        return res.status(500).json({ message: 'Error al eliminar la baja de bien', error: error.message || error });
+    }
+};
+
 bajaBienController.updateBaja = async (req, res) => {
     const { id } = req.params;
     const { id_bien, fecha_baja, motivo_baja, especificacion_motivo } = req.body;
@@ -62,16 +72,6 @@ bajaBienController.updateBaja = async (req, res) => {
         return res.status(200).json(bajaActualizada);
     } catch (error) {
         return res.status(500).json({ message: 'Error al actualizar la baja de bien', error: error.message || error });
-    }
-};
-
-bajaBienController.deleteBaja = async (req, res) => {
-    const { id } = req.params;
-    try {
-        const bajaEliminada = await bajaBienDAO.deleteBajaBienDAO(id);
-        return res.status(200).json(bajaEliminada);
-    } catch (error) {
-        return res.status(500).json({ message: 'Error al eliminar la baja de bien', error: error.message || error });
     }
 };
 

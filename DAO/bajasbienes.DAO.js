@@ -30,9 +30,10 @@ export const getBajasBienesDAO = async () => {
 
 export const getBajaBienDAO = async (id) => {
     try {
-        return await prisma.bajasbienes.findUnique({
-            where: { id_baja_bien: parseInt(id) }
-        });
+        return await prisma.bajasbienes.findMany({
+            where: { 
+                id_baja:parseInt(id) 
+            }});
     } catch (error) {
         console.error('Error al obtener la baja de bien:', error);
         throw error;
@@ -42,7 +43,7 @@ export const getBajaBienDAO = async (id) => {
 export const updateBajaBienDAO = async (id, data) => {
     try {
         const bajaActualizada = await prisma.bajasbienes.update({
-            where: { id_baja_bien: parseInt(id) },
+            where: { id_baja: parseInt(id) },
             data,
         });
         return bajaActualizada;
@@ -55,7 +56,7 @@ export const updateBajaBienDAO = async (id, data) => {
 export const deleteBajaBienDAO = async (id) => {
     try {
         return await prisma.bajasbienes.delete({
-            where: { id_baja_bien: parseInt(id) },
+            where: { id_baja: parseInt(id) },
         });
     } catch (error) {
         console.error('Error al eliminar la baja de bien:', error);

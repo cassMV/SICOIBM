@@ -3,12 +3,11 @@ import * as bienDAO from '../DAO/bienes.DAO.js';
 const bienController = {};
 
 bienController.createBien = async (req, res) => {
-    const { numero_consecutivo, subcuenta_armonizada, codigo_partida_especifica, codificación_gasto, numero_inventario, tipo_posesion, nombre_bien, estatus_bien, id_usuario, fecha_resguardo, id_area, area_responsable, area_presupuestal, id_marca, id_modelo, serie, id_estado, factura_documento, fecha_adquisicion, costo, documento_propiedad, fecha_documento, tipo_alta, recurso_origen, status_legal_documento, caracteristicas, comentario, motivo_no_asignado } = req.body;
+    const { numero_consecutivo, subcuenta_armonizada, codigo_partida_especifica, codificacion_gasto, numero_inventario, tipo_posesion, nombre_bien, estatus_bien, id_usuario, fecha_resguardo, id_area, area_responsable, area_presupuestal, id_marca, id_modelo, serie, id_estado, factura_documento, fecha_adquisicion, costo, documento_propiedad, fecha_documento, tipo_alta, recurso_origen, status_legal_documento, caracteristicas, comentario, motivo_no_asignado } = req.body;
 
-    if (!numero_consecutivo || !subcuenta_armonizada || !codigo_partida_especifica || !codificación_gasto || !numero_inventario || !tipo_posesion || !nombre_bien || !estatus_bien || !id_usuario || !fecha_resguardo || !id_area || !area_responsable || !area_presupuestal || !id_marca || !id_modelo || !serie || !id_estado || !factura_documento || !fecha_adquisicion || !costo || !documento_propiedad || !fecha_documento || !tipo_alta || !recurso_origen || !status_legal_documento || !caracteristicas) {
+    if (!numero_consecutivo || !subcuenta_armonizada || !codigo_partida_especifica || !codificacion_gasto || !numero_inventario || !tipo_posesion || !nombre_bien || !estatus_bien || !id_usuario || !fecha_resguardo || !id_area || !area_responsable || !area_presupuestal || !id_marca || !id_modelo || !serie || !id_estado || !factura_documento || !fecha_adquisicion || !costo || !documento_propiedad || !fecha_documento || !tipo_alta || !recurso_origen || !status_legal_documento || !caracteristicas) {
         return res.status(400).json({ message: 'Todos los campos son requeridos' });
     }
-
     try {
         const nuevoBien = await bienDAO.createBienDAO(req.body);
         return res.status(201).json(nuevoBien);

@@ -6,7 +6,7 @@ usuarioController.createUsuario = async (req, res) => {
     const { nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol } = req.body;
 
     if (!nombre || !apellidos || !correo_electronico || !password_hash || !rfc || !numero_contacto || !id_rol) {
-        return res.status(400).json({message: 'Todos los campos son requeridos: nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol' });
+        return res.status(400).json({message: 'Todos los campos son requeridos' });
     }
     try {
         const nuevoUsuario = await usuarioDAO.createUsuarioDAO(req.body);
