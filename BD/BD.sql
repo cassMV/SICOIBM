@@ -41,10 +41,12 @@ CREATE TABLE Usuarios (
     correo_electronico VARCHAR(255) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     rfc VARCHAR(13) NOT NULL UNIQUE,
+    numero_empleado VARCHAR(20) NOT NULL,  -- Nuevo campo para el número de empleado
     numero_contacto VARCHAR(15),
     id_rol INT,  -- Referencia al rol del usuario
     FOREIGN KEY (id_rol) REFERENCES Roles(id_rol)
 );
+
 
 -- Tabla de bienes muebles con referencia a usuarios
 CREATE TABLE Bienes (

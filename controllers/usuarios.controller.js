@@ -3,9 +3,9 @@ import * as usuarioDAO from '../DAO/usuarios.DAO.js'
 const usuarioController = {};
 
 usuarioController.createUsuario = async (req, res) => {
-    const { nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol } = req.body;
+    const { nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol, numero_empleado } = req.body;
 
-    if (!nombre || !apellidos || !correo_electronico || !password_hash || !rfc || !numero_contacto || !id_rol) {
+    if (!nombre || !apellidos || !correo_electronico || !password_hash || !rfc || !numero_contacto || !id_rol || !numero_empleado) {
         return res.status(400).json({message: 'Todos los campos son requeridos' });
     }
     try {
@@ -49,9 +49,9 @@ usuarioController.deleteUsuario = async(req,res) => {
 
 usuarioController.updateUsuario = async (req, res) => {
     const { id } = req.params;
-    const { nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol } = req.body;
+    const { nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol,numero_empleado } = req.body;
 
-    if (!nombre && !apellidos && !correo_electronico && !password_hash && !rfc && !numero_contacto && !id_rol) {
+    if (!nombre && !apellidos && !correo_electronico && !password_hash && !rfc && !numero_contacto && !id_rol && !numero_empleado) {
         return res.status(400).json({ message: 'Debes proporcionar al menos uno de los siguientes campos para actualizar: nombre, apellidos, correo_electronico, password_hash, rfc, numero_contacto, id_rol' });
     }
 

@@ -13,6 +13,7 @@ export const createUsuarioDAO = async (usuario) =>{
                 rfc : usuario.rfc,
                 numero_contacto : usuario.numero_contacto,
                 id_rol : usuario.id_rol,
+                numero_empleado:usuario.numero_empleado
             },
         });
         return usuarioCreado;

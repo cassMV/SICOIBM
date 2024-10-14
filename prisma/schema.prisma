@@ -103,6 +103,7 @@ model usuarios {
   rfc                String  @unique(map: "rfc") @db.VarChar(13)
   numero_contacto    String? @db.VarChar(15)
   id_rol             Int?
+  numero_empleado    String  @db.VarChar(20)
 
   @@index([id_rol], map: "id_rol")
 }
